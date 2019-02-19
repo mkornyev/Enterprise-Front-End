@@ -1,0 +1,21 @@
+# Phase 3
+before_script:
+# Print status
+  - echo -e "\e[33m+------------------------+\n|   SETTING UP PROJECT   |\n+------------------------+\e[0m"
+# Install gems the Docker image may not have
+  - bundle install --gemfile=Gemfile
+# Set up the test database
+  - rails db:test:prepare
+  - rails db:migrate:reset
+
+test:
+  script:
+# Run their unit tests, return true so that even if their unit tests fail we can continue with their other tests
+    - echo -e "\e[33m+------------------------------+\n|   RUNNING THEIR UNIT TESTS   |\n+------------------------------+\e[0m"
+    - rails test test/models || true
+# Run their controller tests, return true so that even if their controller tests fail we can continue with their other tests
+    - echo -e "\e[33m+------------------------------------+\n|   RUNNING THEIR CONTROLLER TESTS   |\n+------------------------------------+\e[0m"
+    - rails test test/controllers || true
+# Run their controller tests
+    - echo -e "\e[33m+------------------------------+\n|   RUNNING THEIR VIEW TESTS   |\n+------------------------------+\e[0m"
+    - bundle exec cucumber
