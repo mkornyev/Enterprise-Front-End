@@ -33,6 +33,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#My Gems: 
+gem 'bootstrap', '~> 4.3.1'
+
 
 # Other gems
 gem 'chronic', '0.10.2'

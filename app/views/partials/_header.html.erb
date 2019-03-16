@@ -1,0 +1,23 @@
+<!-- NavBar --> 
+<nav class="navbar navbar-dark bg-dark">
+  <!-- Horizontal allignment --> 
+  <ul class="nav justify-content-center">
+  	  <li class="nav-item pl-5 ml-5 text-warning font-weight-bold lead d-inline">
+        <%= link_to 'BakingFactory', home_path, style: 'color: #ffc107;' %><span>&nbsp;&nbsp;&nbsp;</span>
+  	  </li>
+  	  <li class="nav-item pt-1">
+      <%= link_to 'Customers', customers_path %><span>&nbsp;&nbsp;&nbsp;</span>
+	  </li>
+	  <li class="nav-item pt-1">
+	    Addresses<span>&nbsp;&nbsp;&nbsp;</span>
+	  </li>
+	  <li class="nav-item pt-1">
+	    Orders
+	  </li>
+  </ul>
+  <!-- Search Form: Not working, but I left it here for my own, future implementation --> 
+  <form class="form-inline pr-5 mr-5">
+  	<input class="form-control mr-sm-2 float-left search_bar" method="get" action="/search" name="q" type="search" placeholder="Search: not implemented" aria-label="Search">
+  	<button type="button" class="btn search_bar btn-outline-warning mr-5 pr-5">Search</button>
+  </form>
+</nav>

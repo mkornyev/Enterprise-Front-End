@@ -1,0 +1,45 @@
+<%= render "partials/header" %>
+
+<div class="container">
+  <div class="row no-gutters">
+    <!-- Logo --> 
+    <div class="col-md-4 pl-3 pt-5">
+      <h4 class="lead">Welcome to the Customer Page.</h4><br>
+
+      <% if @active_customers.empty? %>
+        <h4>No active customers at this time</h4>
+      <% else %>
+        <h4>Active Customers:</h4>
+        <!-- Table --> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @active_customers.each do |cust| %>
+              <tr>
+                <th scope="row">cust.id</th>
+                <td><%= link_to cust.name, customer_path(cust) %></td>
+                <td>cust.phone</td>
+                <td>cust.email</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table><br>
+        
+        <!-- Pagination --> 
+        <span class="paginate">
+        <%= will_paginate @customers, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+        </span>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<%= render "partials/footer" %>
