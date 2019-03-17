@@ -35,6 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 #My Gems: 
 gem 'bootstrap', '~> 4.3.1'
+gem 'strftime'
 
 
 # Other gems

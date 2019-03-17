@@ -1,9 +1,15 @@
 class AddressesController < ApplicationController
-  
+  #Callback 
+  before_action :set_address, only: [:show, :edit, :update]
+
+  #Restful methods: 
   def index
   	#Setting controller variables and paginating 
-    @active_addresses = Address.active.alphabetical.paginate(page: params[:page]).per_page(20)
-    @inactive_addresses = Address.inactive.alphabetical.paginate(page: params[:page]).per_page(20)
+    @active_addresses = Address.active.by_customer.paginate(page: params[:page]).per_page(20)
+    @inactive_addresses = Address.inactive.by_customer.paginate(page: params[:page]).per_page(20)
+  end
+
+  def show
   end
 
   def new
@@ -15,13 +21,25 @@ class AddressesController < ApplicationController
 
   def create
     @address = Address.new(address_params)
-    if @owner.save
-      # if saved to database
-      flash[:notice] = "Successfully created #{@owner.proper_name}."
-      redirect_to owner_path(@owner) # go to show owner page
+    if @address.save
+      #Confirmation Flash
+      @customer = Customer.where(_id: @address.customer_id) #Set a single address owner 
+      flash[:notice] = "The address was added to #{@customer.proper_name}."
+      redirect_to customer_path(@customer) 
     else
-      # return to the 'new' form
+      #Redirect to create another addy
       render action: 'new'
+    end
+  end
+
+  def update
+  	#Confirmation flash
+    if @address.update_attributes(address_params) 
+      flash[:notice] = "The address was updated."
+      redirect_to @address
+    else
+      #Redirect to edit again
+      render action: 'edit'
     end
   end
 

@@ -1,0 +1,44 @@
+<%= render "partials/header" %>
+
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col pl-3 pt-5">
+      <!-- Details Pane --> 
+      <h4 class="lead">Customer Details:</h4><br>
+
+      <fieldset class="border mt-4">
+		<legend class="pl-3"><%= @customer.proper_name %></legend>
+		<div class="px-2 py-2">
+		<% if @previous_orders != nil %>	
+			<%= "A Baking Factory customer since " + @previous_orders.last.date.strftime('%Y').to_s %><br>
+		<% end %>
+		Phone:  <%= @customer.phone.to_s[0,3] + "-" + @customer.phone.to_s[3,3] + "-" + @customer.phone.to_s[6,4] %><br>
+		Email:  <%= @customer.email %><br>
+		</div>
+	  </fieldset><br>
+
+	  <!-- Orders Pane --> 
+	  <h4 class="lead">Order History:</h4><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Order Rows --> 
+            <% @previous_orders.each do |prev_order| %>
+              <tr>
+                <td><%= link_to prev_order.date.strftime('%m/%d/%y'), order_path(prev_order) %></td>
+                <td><%= '$' + prev_order.grand_total.to_s %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+</div>
+
+<%= render "partials/footer" %>

@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get 'home/privacy', to: 'home#privacy', as: :privacy
 
   resources :customers 
+  resources :addresses
+  resources :orders
 end

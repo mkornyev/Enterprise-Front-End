@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-  	@previous_orders = @customer.joins(:orders).order("date DESC").to_a
+  	@previous_orders = Order.for_customer(@customer.id).order('date DESC')
   end
 
   def new 
@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
     if @customer.save
       #Flash confirmation
       flash[:notice] = "#{@customer.proper_name} was added to the system."
-      #Show newest customer
+      #Redirect to newest customer
       redirect_to customer_path(@customer) 
     else
       #Else redirect to New
@@ -35,13 +35,10 @@ class CustomersController < ApplicationController
   def update
   	if @customer.update_attributes(owner_params) 
       flash[:notice] = "#{@owner.proper_name} was sucessfully updated."
-      redirect_to @customer
+      redirect_to customer_path(@customer)
     else
       render action: 'edit'
     end
-  end
-
-  def destroy
   end
 
   private

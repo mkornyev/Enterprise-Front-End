@@ -2,8 +2,7 @@
 
 <div class="container">
   <div class="row no-gutters">
-    <!-- Logo --> 
-    <div class="col-md-4 pl-3 pt-5">
+    <div class="col pl-3 pt-5">
       <h4 class="lead">Welcome to the Customer Page.</h4><br>
 
       <% if @active_customers.empty? %>
@@ -14,19 +13,18 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Phone</th>
               <th scope="col">Email</th>
             </tr>
           </thead>
           <tbody>
+            <!-- Active Rows --> 
             <% @active_customers.each do |cust| %>
               <tr>
-                <th scope="row">cust.id</th>
                 <td><%= link_to cust.name, customer_path(cust) %></td>
-                <td>cust.phone</td>
-                <td>cust.email</td>
+                <td><%= cust.phone.to_s[0,3] + "-" + cust.phone.to_s[3,3] + "-" + cust.phone.to_s[6,4]%></td>
+                <td><%= cust.email %></td>
               </tr>
             <% end %>
           </tbody>
@@ -34,7 +32,7 @@
         
         <!-- Pagination --> 
         <span class="paginate">
-        <%= will_paginate @customers, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+        <%= will_paginate @active_customers, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
         </span>
       <% end %>
 
