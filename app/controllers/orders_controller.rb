@@ -1,3 +1,5 @@
+require 'Date' #Impossible to set a date value using just the Time Class
+
 class OrdersController < ApplicationController
 	#Controller callbacks to set Order instance 
 	before_action :set_order, only: [:show, :edit, :update]
@@ -24,7 +26,7 @@ class OrdersController < ApplicationController
 
 	def create
 		@order = Order.new(order_params)
-		@order.date = Time.now.strftime('%Y-%m-%d')
+		@order.date = Time.now #THERE IS SOMETHING WRONG WITH THIS THE DATE VAR BUT I CANNOT FIND A SOLUTION (Date.current does not work)
 		if @order.save
 		    #Flash confirmation
 		    @order.generate_payment_receipt() #Generate the receipt upon save
