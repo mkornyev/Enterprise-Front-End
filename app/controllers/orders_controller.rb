@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
 
 	def create
 		@order = Order.new(order_params)
-		@order.date = Time.now #THERE IS SOMETHING WRONG WITH THIS THE DATE VAR BUT I CANNOT FIND A SOLUTION (Date.current does not work)
+		@order.date = Date.today #THERE IS SOMETHING WRONG WITH THIS THE DATE VAR BUT I CANNOT FIND A SOLUTION (Date.current/Time.now does not work)
 		if @order.save
 		    #Flash confirmation
 		    @order.generate_payment_receipt() #Generate the receipt upon save
