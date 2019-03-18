@@ -2,6 +2,7 @@
   <%= f.error_notification %>
   <div class="row">
     <div class="form-inputs">
+      <!-- IMPORTANT NOTE: the customer_id input is not set in the controller because of strange behavior, where upon a failed New Order redirect the input reverts to a numerical value-->
       <%= f.input :customer_id, collection: Customer.active.alphabetical.to_a, include_blank: true %>
       <%= f.input :address_id, collection: @addresses_collection, include_blank: true %>
       <%= f.input :grand_total, label_html: { class: 'active' } %>

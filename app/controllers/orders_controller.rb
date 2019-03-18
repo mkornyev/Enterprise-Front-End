@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
 	def new
 	  @order = Order.new
-	  #Create an address array for collection access in Order form
+	  #Create an address array for easy collection access in the Order form (Not breaking MVC!)
 	  @addresses_collection = [] 
 	  Address.active.each do |add| 
 	  	@addresses_collection << (add.street_1 + ", " + add.city + ", " + add.state + " " + add.zip).to_s
@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
 
 	def create
 		@order = Order.new(order_params)
-		@order.date = Time.now.strftime('%m/%d/%y')
+		@order.date = Time.now.strftime('%Y-%m-%d')
 		if @order.save
 		    #Flash confirmation
 		    @order.generate_payment_receipt() #Generate the receipt upon save
