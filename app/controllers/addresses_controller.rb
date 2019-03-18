@@ -23,7 +23,7 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
     if @address.save
       #Confirmation Flash
-      @customer = Customer.where(_id: @address.customer_id) #Set a single address owner 
+      @customer = Customer.find(@address.customer_id) #Set a single address owner 
       flash[:notice] = "The address was added to #{@customer.proper_name}."
       redirect_to customer_path(@customer) 
     else
@@ -36,7 +36,7 @@ class AddressesController < ApplicationController
   	#Confirmation flash
     if @address.update_attributes(address_params) 
       flash[:notice] = "The address was updated."
-      redirect_to @address
+      redirect_to addresses_path
     else
       #Redirect to edit again
       render action: 'edit'

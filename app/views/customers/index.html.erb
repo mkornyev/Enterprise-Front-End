@@ -3,7 +3,12 @@
 <div class="container mb-5">
   <div class="row no-gutters">
     <div class="col pl-3 pt-5">
-      <h4 class="lead">Welcome to the Customer Page.</h4><br>
+      <h4 class="lead">Welcome to the Customer Page.</h4>
+      
+      <!-- New Customer --> 
+      <%= link_to(new_customer_path(@customer), class: 'btn btn-primary btn-md active my-2') do %>
+            &nbsp;<%= "Add a Customer" %>
+      <% end %><br>
 
       <% if @active_customers.empty? %>
         <h4>No active customers at this time</h4>

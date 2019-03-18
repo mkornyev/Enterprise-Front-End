@@ -1,0 +1,31 @@
+<%= render "partials/header" %>
+
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col pl-3 pt-5">
+      <!-- Details Pane --> 
+      <h4 class="lead">Address Details:</h4><br>
+
+      <fieldset class="border mt-4">
+
+    		<div class="px-2 py-2">
+    		Recipient:  <%= @address.recipient %><br>
+    		Street 1:  <%= @address.street_1 %><br>
+        Street 2:  <%= @address.street_2 %><br>
+        City:  <%= @address.city %><br>
+        State:  <%= @address.state %><br>
+        Zip:  <%= @address.zip %><br>
+        Active:  <%= @address.active %><br>
+
+        <%= link_to(edit_address_path(@address), class: 'btn btn-primary btn-md active my-2') do %>
+            &nbsp;<%= "Edit Address" %>
+        <% end %>
+    		</div>
+
+  	  </fieldset><br>
+
+    </div>
+  </div>
+</div>
+
+<%= render "partials/footer" %>

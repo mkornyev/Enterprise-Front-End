@@ -15,14 +15,19 @@ class OrdersController < ApplicationController
 
 	def new
 	  @order = Order.new
+	  #Create an address array for collection access in Order form
+	  @addresses_collection = [] 
+	  Address.active.each do |add| 
+	  	@addresses_collection << (add.street_1 + ", " + add.city + ", " + add.state + " " + add.zip).to_s
+	  end
 	end
 
 	def create
 		@order = Order.new(order_params)
 		@order.date = Time.now.strftime('%m/%d/%y')
-		@order.generate_payment_receipt()
 		if @order.save
-		  #Flash confirmation
+		    #Flash confirmation
+		    @order.generate_payment_receipt() #Generate the receipt upon save
 			flash[:notice] = "Thank you for ordering from the Baking Factory."
 			redirect_to order_path(@order) # go to show owner page
 		else
