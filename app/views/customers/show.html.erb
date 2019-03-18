@@ -7,18 +7,19 @@
       <h4 class="lead">Customer Details:</h4><br>
 
       <fieldset class="border mt-4">
-		<legend class="pl-3"><%= @customer.proper_name %></legend>
-		<div class="px-2 py-2">
-		<% if @previous_orders != nil %>	
-			<%= "A Baking Factory customer since " + @previous_orders.last.date.strftime('%Y').to_s %><br>
-		<% end %>
-		Phone:  <%= @customer.phone.to_s[0,3] + "-" + @customer.phone.to_s[3,3] + "-" + @customer.phone.to_s[6,4] %><br>
-		Email:  <%= @customer.email %><br>
-		</div>
-	  </fieldset><br>
+  		<legend class="pl-3"><%= @customer.proper_name %></legend>
+    		<div class="px-2 py-2">
+    		Phone:  <%= @customer.phone.to_s[0,3] + "-" + @customer.phone.to_s[3,3] + "-" + @customer.phone.to_s[6,4] %><br>
+    		Email: &nbsp;&nbsp;<%= @customer.email %><br>
+        <%= link_to(edit_customer_path(@customer), class: 'btn btn-primary btn-md active my-2') do %>
+            &nbsp;<%= "Edit Customer" %>
+        <% end %>
+    		</div>
+  	  </fieldset><br>
 
 	  <!-- Orders Pane --> 
-	  <h4 class="lead">Order History:</h4><br>
+	  <h4 class="lead">Order History:</h4>
+    <%= "A Baking Factory customer since " + @customer.created_at.strftime('%Y') %>
         <table class="table">
           <thead>
             <tr>
@@ -31,7 +32,7 @@
             <% @previous_orders.each do |prev_order| %>
               <tr>
                 <td><%= link_to prev_order.date.strftime('%m/%d/%y'), order_path(prev_order) %></td>
-                <td><%= '$' + prev_order.grand_total.to_s %></td>
+                <td><%= number_to_currency(prev_order.grand_total) %></td>
               </tr>
             <% end %>
           </tbody>

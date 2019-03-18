@@ -9,7 +9,7 @@
       <fieldset class="border mt-4">
     		<legend class="pl-3"><%= "Recipient: " + Address.find(@order.address_id).recipient %></legend>
     		<div class="px-2 py-2">
-    		<%= "Thanks for being a Baking Factory customer since " + @previous_orders.last.date.strftime('%Y') + "." %><br>
+    		<%= "Thanks for being a Baking Factory customer since " + Customer.find(@order.customer_id).created_at.strftime('%Y') + "." %><br>
     		</div>
 	  </fieldset><br>
 
@@ -23,11 +23,18 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Single Order Rows --> 
+            <!-- Single Order Rows 
               <tr>
                 <td><%= @order.date.strftime('%m/%d/%y') %></td>
-                <td><%= '$' + @order.grand_total.to_s %></td>
+                <td><%= number_to_currency(@order.grand_total) %></td>
+              </tr> -->
+            <!-- Order Rows --> 
+            <% @previous_orders.each do |prev_order| %>
+              <tr>
+                <td><%= link_to prev_order.date.strftime('%m/%d/%y'), order_path(prev_order) %></td>
+                <td><%= number_to_currency(prev_order.grand_total) %></td>
               </tr>
+            <% end %>  
           </tbody>
         </table>
 

@@ -33,8 +33,8 @@ class CustomersController < ApplicationController
   end
 
   def update
-  	if @customer.update_attributes(owner_params) 
-      flash[:notice] = "#{@owner.proper_name} was sucessfully updated."
+  	if @customer.update_attributes(customer_params) 
+      flash[:notice] = "#{@customer.proper_name} was sucessfully updated."
       redirect_to customer_path(@customer)
     else
       render action: 'edit'

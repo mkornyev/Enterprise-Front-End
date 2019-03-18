@@ -1,6 +1,6 @@
 <%= render "partials/header" %>
 
-<div class="container">
+<div class="container mb-5">
   <div class="row no-gutters">
     <div class="col pl-3 pt-5">
       <h4 class="lead">Welcome to the Address Page.</h4><br>
@@ -39,9 +39,44 @@
         </table><br>
         
         <!-- Pagination --> 
-        <span class="paginate">
+        <span class="paginate mb-5">
         <%= will_paginate @active_addresses, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
-        </span>
+        </span><br>
+      <% end %>
+
+      <!-- Inactive Table --> 
+      <% if @inactive_addresses.empty? %>
+        <h4>There are no inactive addresses at this time.</h4><br>
+      <% else %>
+        <h4>Inactive Addresses:</h4>
+        <!-- Table --> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Customer</th>
+              <th scope="col">Recipient</th>
+              <th scope="col">Address</th>
+              <th scope="col">Billing?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Active Rows --> 
+            <% @inactive_addresses.each do |add| %>
+              <tr>
+                <td><%= link_to Customer.find(add.customer_id).proper_name, customer_path(Customer.find(add.customer_id)) %></td>
+                <td><%= add.recipient %></td>
+                <td><%= add.street_1 + ", " + add.city + ", " + add.state + " " + add.zip %></td>
+                <td>
+                  <% if add.is_billing %>  
+                    Yes
+                  <% else %>
+                    No
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table><br>
       <% end %>
     </div>
   </div>

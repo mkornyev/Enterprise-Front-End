@@ -1,6 +1,6 @@
 <%= render "partials/header" %>
 
-<div class="container">
+<div class="container mb-5">
   <div class="row no-gutters">
     <div class="col pl-3 pt-5">
       <h4 class="lead">Welcome to the Customer Page.</h4><br>
@@ -9,7 +9,7 @@
         <h4>No active customers at this time</h4>
       <% else %>
         <h4>Active Customers:</h4>
-        <!-- Table --> 
+        <!-- Active Table --> 
         <table class="table">
           <thead>
             <tr>
@@ -28,12 +28,36 @@
               </tr>
             <% end %>
           </tbody>
-        </table><br>
-        
+        </table>
         <!-- Pagination --> 
-        <span class="paginate">
+        <div class="paginate mb-5">
         <%= will_paginate @active_customers, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
-        </span>
+        </div>
+      <% end %>
+
+      <!-- Inactive Table -->
+      <% if @inactive_customers.empty? %>
+        <h4>There are no inactive customers at this time.</h4><br>
+      <% else %>
+        <h4>Inactive Customers:</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @inactive_customers.each do |cust| %>
+              <tr>
+                <td><%= link_to cust.name, customer_path(cust) %></td>
+                <td><%= cust.phone.to_s[0,3] + "-" + cust.phone.to_s[3,3] + "-" + cust.phone.to_s[6,4]%></td>
+                <td><%= cust.email %></td>
+              </tr>
+            <% end %> 
+          </tbody>
+        </table><br>
       <% end %>
 
     </div>

@@ -1,0 +1,20 @@
+<%= render "partials/header" %>
+
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col pl-3 pt-5">
+
+      <!-- Edit Pane --> 
+      <h4 class="lead">New Customer:</h4><br>
+
+      <fieldset class="border">
+        <div class="ml-4 pl-2 my-4">
+          <%= render 'form', customer: @customer %>
+        </div>
+      </fieldset>
+      <%= link_to 'Take Me Back', customer_path(@customer) %>
+    </div>
+  </div>
+</div>
+
+<%= render "partials/footer" %>

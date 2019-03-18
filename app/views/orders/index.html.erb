@@ -1,6 +1,6 @@
 <%= render "partials/header" %>
 
-<div class="container">
+<div class="container mb-5">
   <div class="row no-gutters">
     <div class="col pl-3 pt-5">
       <h4 class="lead">Welcome to the Orders Page.</h4><br>
@@ -26,16 +26,16 @@
                 <td><%= link_to ord.date.strftime('%m/%d/%y'), order_path(ord) %></td>
                 <td><%= link_to Customer.find(ord.customer_id).name, customer_path(Customer.find(ord.customer_id)) %></td>
                 <td><%= Address.find(ord.address_id).recipient %></td>
-                <td><%= "$" + ord.grand_total.to_s %></td>
+                <td><%= number_to_currency(ord.grand_total) %></td>
               </tr>
             <% end %>
           </tbody>
         </table><br>
         
         <!-- Pagination --> 
-        <span class="paginate">
+        <span class="paginate mb-5">
         <%= will_paginate @all_orders, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
-        </span>
+        </span><br>
       <% end %>
     </div>
   </div>

@@ -1,0 +1,17 @@
+<%= simple_form_for(@customer) do |f| %>
+  <%= f.error_notification %>
+  <div class="row">
+    <div class="form-inputs">
+      <%= f.input :first_name, label_html: { class: 'active' } %>
+      <%= f.input :last_name, label_html: { class: 'active' } %>
+      <%= f.input :email, label_html: { class: 'active' } %>
+      <%= f.input :phone, label_html: { class: 'active' } %>
+      <%= f.input :active, label_html: { class: 'active' } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="btn btn-primary btn-sm active">
+      <%= f.button :submit, class: "text-white" %>
+    </div>
+  </div>
+<% end %>
