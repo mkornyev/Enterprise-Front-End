@@ -24,6 +24,11 @@ class Order < ApplicationRecord
     self.payment_receipt
   end
 
+  def generate_payment_receipt
+    self.payment_receipt = Base64.encode64("order: #{self.id}; amount_paid: #{self.grand_total}; received: #{self.date}")
+    self.save!
+  end
+
   private
   def customer_is_active_in_system
     all_customer_ids = Customer.active.map(&:id)
@@ -37,10 +42,6 @@ class Order < ApplicationRecord
     unless all_address_ids.include?(self.address_id)
       errors.add(:address, "is not an active address in the system")
     end
-  end
-
-  def generate_payment_receipt
-    self.payment_receipt = Base64.encode64("order: #{self.id}; amount_paid: #{self.grand_total}; received: #{self.date}")
   end
 
 end
